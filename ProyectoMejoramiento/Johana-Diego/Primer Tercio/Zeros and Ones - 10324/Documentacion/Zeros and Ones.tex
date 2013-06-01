@@ -1,0 +1,241 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Zeros and Ones}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Zeros and Ones}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{10324}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar la implementación de la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la estrategia de 'divide y vencerás'.
+			
+			Esta estrategia es una técnica de diseño de algoritmos la cual consiste en dividir de forma recurrente un problema en subproblemas más sencillos hasta que se encuentre un caso base. 
+			
+			\vskip1cm
+			
+			Esta técnica consta fundamentalmente de los siguientes pasos:
+			
+			\begin{enumerate}
+			
+				\item Descomponer el problema a resolver en un cierto número de subproblemas más pequeños.
+				
+				\item Resolver independientemente cada subproblema.
+				
+				\item Combinar los resultados obtenidos para construir la solución del problema original.
+				
+			\end{enumerate}
+		
+		\vskip4cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Dada una cadena de \textbf{0's} y \textbf{1's} y dos índices $i$ y $j$ se debe decir si todos los caracteres entre la posición $i$ y la posición $j$ son los mismos.
+		
+			\vskip0.5cm
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+			
+				\item Para cada caso de prueba se debe ingresar una cadena binaria $b$, un número entero $n$ y $n$ secuencias compuestas por dos números enteros $i$ y $j$.
+				
+				\item Para $b$ se debe tener en cuenta que $1 \leq b \leq 1000000$ por lo tanto para los índices $i$ y $j$ se debe tener en cuenta $0 \leq i < 1000000$, $0 \leq j < 1000000$.
+				
+			\end{enumerate}
+	 
+	 	\vskip7cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					Hay varios casos en la entrada. La primera línea de cada caso es una cadena de 0's y de 1's. La siguiente línea contiene un entero positivo $n$ que indica el número de consultas para este caso. Las siguientes $n$ líneas contienen los índices a consultar, una por línea. Cada consulta está dada por dos números enteros no negativos, $i$ y $j$ . Para cada consulta, usted debe imprimir \textbf{Yes} si todos los caracteres en la cadena entre la posición $i$ y la posición $j$ son los mismos, y \textbf{No} lo contrario.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		0000011111
+					\]
+					\[
+					 		3
+					\]
+					\[
+					 		0 \begin{tabular}{ccc} 5 \end {tabular}
+					\]
+					\[
+					 		4 \begin{tabular}{ccc} 2 \end {tabular}
+					\]
+					\[
+					 		5 \begin{tabular}{ccc} 9 \end {tabular}
+					\]
+					\[
+					 		01010101010101010101010101111111111111111111111111111111111110000000000000000
+					\]
+					\[
+							5
+					\]
+					\[
+					 		4 \begin{tabular}{ccc} 4 \end {tabular}
+					\]
+					\[
+					 		25 \begin{tabular}{ccc} 60 \end {tabular}
+					\]
+					\[
+					 		1 \begin{tabular}{ccc} 3 \end {tabular}
+					\]
+					\[
+					 		62 \begin{tabular}{ccc} 76 \end {tabular}
+					\]
+					\[
+					 		24 \begin{tabular}{ccc} 62 \end {tabular}
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		0 \begin{tabular}{ccc} 0 \end {tabular}
+					\]
+				
+				\vskip9cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Cada caso de la producción debería comenzar con un encabezado como en el ejemplo siguiente. La entrada termina con una cadena vacía que es una línea que contiene sólo el carácter de nueva línea, esta cadena no debe ser procesada.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							Caso \begin{tabular}{ccc} 1: \end {tabular}
+					\]
+					\[
+							No
+					\]
+					\[
+							Yes
+					\]
+					\[
+							Yes
+					\]
+					\[
+							Caso \begin{tabular}{ccc} 2: \end {tabular}
+					\]
+					\[
+							Yes
+					\]
+					\[
+							Yes
+					\]
+					\[
+							No
+					\]
+					\[
+							Yes
+					\]
+					\[
+							No
+					\]
+					\[
+							Caso \begin{tabular}{ccc} 3: \end {tabular}
+					\]
+					\[
+							Yes
+					\]
+	
+			\vskip4cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		Dada una cadena binaria $b$ y dos índices de consulta $i$ y $j$, se toma la subcadena comparando así cada carácter que la conforma.
+					
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para este problema nos podemos basar en algunas características del algoritmo de ordenamiento \textbf{Mergesort} que permite mejorar el tiempo de ejecución puesto que se necesitan menos pasos para cumplir el objetivo principal; el algoritmo trabaja de la siguiente forma:
+			
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{mergesort2.png}
+				
+				\footnote{http://throwingcodes.blogspot.com/}
+				
+				\vskip1cm
+				
+				\begin{enumerate}
+				
+					\item Si la longitud de la cadena es 0 ó 1, entonces la respuesta al problema es 'Yes'.
+					\item Dividir la cadena en dos subcadenas de aproximadamente la mitad del tamaño.
+					\item Comparar cada carácter de cada subcadena formada para asi tener la respuesta a cada caso de prueba.
+					
+				\end{enumerate}
+				
+				Con este algoritmo se podrá dividir la subcadena hasta obtener un caso base y comparar fácilmente los caracteres que la conforman.
+			
+			\vskip1cm
+					
+			\vskip5cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Este algoritmo de ordenación es un ejemplo claro de que el método divide y vencerás es efectivo cuando tienes cantidades grandes de datos por trabajar y necesitas ahorrar tiempo y recursos.
+				
+				\item Este algoritmo de ordenamiento tiene una complejidad de $\left( n$ log $n)$ que permite mejorar el tiempo de ejecución de un problema con listas grandes.
+			
+			\end{enumerate}
+	
+\end{document}

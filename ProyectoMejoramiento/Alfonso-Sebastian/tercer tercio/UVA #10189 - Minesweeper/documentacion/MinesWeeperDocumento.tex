@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\begin{document}
+\title{Minesweeper}
+\author{Diego Alfonso Prieto Torres - Sebastian Camilo Martinez Reyes}
+\maketitle
+\tableofcontents
+%PRIMERA SECCION
+\section{Contextualizacion}
+El problema de Minesweeper es un problema usado en maratones de programacion, cuyo enunciado puede encontrarse actualmente en el Juez en Linea de la UVA identificado con el codigo 10189. En este documento se planteara una solucion para dicho problema a partir de una formalizacion matematica del mismo, con el fin de que alumnos con nociones basicas de programacion logren entender el planteamiento general de la solucion y de esta forma adquieran herramientas para proceder a desarrollar la solucion. 
+\section{Definicion del Problema}
+\subsection{Objetivos}
+Los objetivos que se nos plantean con este programa consisten en:
+\begin{itemize}
+\item Informar cuantas minas se encuentran adyacentes a una casilla que no es una mina.
+\item Informar, ademas, si la casilla en especifico es una mina, por medio de la simbolizacion de esta con el caracter $\ast$
+\end{itemize}
+\subsection{Precondicion}
+La entrada del problema consiste en los limites de la matriz inicial $m$ y $n$, junto con ellos, la matriz o tablero de juego, donde $\ast$ representara una mina y $\cdot$ una casilla que no es mina. 
+\subsection{Poscondicion}
+Una matriz con los mismos limites de la matriz inicial, donde se visualize la informacion de cuantas minas adyacentes se encuentran en las casillas que no son minas.
+%SEGUNDA SECCION
+\section{Modelamiento de la Solucion}
+\subsection{Definicion de Conceptos}
+Sea $A$ una matriz ${m}\times{n}$, tal que se entiende $a_{i,j}$ como un elemento que pertenece a la matriz A donde:
+\[a_{i,j}=\left\{\begin{array}{cl}
+\ast,&\mbox{si es una mina}\\
+\cdot,&\mbox{si No lo es}\end{array}\right.\]\\
+donde, \\$0\leq i < m$ \\$0\leq j < n$ 
+\paragraph{}
+Se define area de influencia como el conjunto de los elementos que pertenecen a $A$ y son adyacentes a una mina; y ademas el elemento influenciado no es una mina. Es decir; sea $a_{i,j}=\ast$; el area que se encuentra influenciada por esta mina esta dada por el conjunto $S$:\\
+\[
+S=\left\{r,k\mid i-1\leq r \leq i+1 \wedge j-1\leq k \leq j+1 \wedge a_{r,k} \in A \wedge a_{r,k} \neq \ast: a_{r,k}\right\}
+\]
+\begin{figure} [h]
+\begin {center}
+\includegraphics[width=0.5\textwidth]{mine}
+\caption{Area de influencia}
+\end {center}
+\end{figure}
+\subsection{Estrategia de Solucion}
+La estrategia cosiste en encontrar cada una de las minas dentro de la matriz $A$ y por cada mina aumentar en $1$ cada uno de los elementos que pertenecen al conjunto $S$ definido por esa mina.
+\paragraph{}
+Es decir, sea $a_{i,j}=\ast$, donde el area de influeancia de este elemento se encuentra definido en el conjunto $S$ se tiene que
+\[
+P\equiv(\forall a_{r,k}\mid a_{r,k} \in S : a_{r,k}:= a_{r,k} + 1)
+\]
+\paragraph{}
+Esto para cada una de las minas que existan en la matriz A. Por lo cual tenemos lo siguiente.
+\[
+(\forall a_{i,j}\mid a_{i,j}=\ast : P )
+\]
+\subsection{Leve Nocion de Estructura de Datos}
+Para poder implementar el ejercicio de una forma correcta y eficiente, se recomienda usar dos matrices $A$ de ${m}\times{n}$como la matriz de entrada que contiene la informacion de las minas y $B$ de ${m+2}\times{n+2}$ que contendra la informacion de las casillas o elemnetos influenciados. 
+%TERCERA SECCION
+\section{Conclusiones}
+Se ha encontrado que este problema en particular se logra desarrollar eficazmente si por cada mina, modificamos su area de influencia, ya que en el peor de los casos, se deberia analizar un total de $m*n$ numero de minas.
+\paragraph{}
+En la parte de estructura de datos es mas eficaz que la matriz solucion contenga dos columnas y dos filas extras, para evitar gastar tiempo de ejecucion en validacion sobre los limites.
+\end{document}

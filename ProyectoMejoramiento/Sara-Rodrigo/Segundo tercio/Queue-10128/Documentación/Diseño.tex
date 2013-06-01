@@ -1,0 +1,69 @@
+\documentclass[12pt]{article} 
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{graphicx}
+
+
+\title{COLAS}
+\author{Sara Chica, Rodrigo Gualtero}
+\date{10 de Noviembre, 2012}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción}
+Este es un problema de la UVA, identificado con el código \textit{10128}, el cual consiste en encontrar el número de posibilidades en que se pueden distribuir \textit{n} personas en una fila donde se ven \textit{l} cantidad de personas por el frente y \textit{r} por atrás. Cada persona tiene una altura diferente, por lo tanto no deja ver a los más pequeños que estén siendo ocultados por él.
+\\En los ejemplos que se encuentran a continuación cada persona está representada por una linea vertical.
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Ejemplo1.jpg}
+	\\Ejemplo 1.1: Hay 3 personas. Se ve por adelante 1 persona y por atrás 2.
+\end{center}
+En el ejemplo anterior se puede ver que existe úna única posibilidad para que sólo se vea 1 por adelante y 2 por atrás y es la que se presenta.
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Ejemplo2.jpg}
+	\\Ejemplo 2.1: Hay 4 personas. Se ve por adelante 2 personas y por atrás 2 también.
+\end{center}
+De estos se despliegan varias posibilidades, de las cuales 6 sirven.
+
+\section{Definición del problema}
+En este problema se desea encontrar las posibilidades para organizar \textit{n} cantidad de personas, de tal forma que tanto por delante como por atrás se vea el mismo número de personas que se plantea en la entrada. Es decir, si hay 3 personas, por delante se ve 1 persona y por detrás 2, estos números se deben conservar.
+\subsection{Entrada}
+Se recibe un número entero que indica la cantidad de filas que entran \textit{(T)}.
+\\De ahí en adelante entran T filas, cada una con 3 enteros, el primero la cantidad de personas que hay en la fila, el segundo cuantas personas se ven por delante y el tercero cuantas personas se ven por detrás.
+\subsection{Salida}
+Por cada caso de prueba se debe imprimir una linea que contenga el número de posibilidades que hay para organizar las personas de forma que se vea la misma cantidad por delante que anteriormente, lo mismo por atrás. 
+
+\section{Modelamiento matem\'atico}
+Este problema se puede modelar como un árbol de posibilidades donde cada fila es un nodo del árbol, el cual a su vez tiene por dentro una tripla de 3 enteros $(n,l,r)$.
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Ejemplo1-2.png}
+	\\Ejemplo 1.2: Árbol dado el ejemplo 1.1
+\end{center}
+Dado este árbol se representa gráficamente el siguiente árbol de posibilidades.
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Ejemplo1-3.png}
+	\\Ejemplo 1.3: Representación gráfica de las posibilidades.
+\end{center}
+
+\section{Planteamiento de la Solución}
+Para determinar la solución del problema se deben saber todas las posibles posibilidades para acomodar las personas y ver en ellas cuales son las que sirven para que se mantengan la misma cantidad de personas que se ven por el frente, como por atrás.
+\\En el ejemplo 1 se observa, abriendo el árbol de posibilidades, que la única posibilidad para mantener las mismas cantidades es mantener las personas en el mismo lugar.
+\\Llegar a la solución sería posible de diferentes maneras, una de ellas por medio de backtraking, sin embargo existe otra forma para llegar a ella, se utilizan 3 \textit{for} anidados para realizar las diferentes permutaciones y obtener el resultado.
+
+\section{Conclusiones}
+\begin{enumerate}
+	\item Backtraking permite obtener todas las permutaciones posibles, sin embargo utliza excesivamente los recursos, tales como memoria y tiempo, ya que tiene que abarcar cada una de las posilibidades.
+	\item Por medio de los tipos de algoritmos de recorridos de árboles se puede abarcar todas las posibilidades para solucionar un problema de este tipo, por lo tanto resulta importante conocerlos y saber como utilizarlos, así de esta forma se llega a saber si es la mejor solución o existe otra mejor.
+\end{enumerate}
+\end{document}

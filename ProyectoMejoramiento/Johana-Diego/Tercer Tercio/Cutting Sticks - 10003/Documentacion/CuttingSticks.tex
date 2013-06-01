@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{CUTTING STICKS}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl \textbf{Cutting Sticks} es un problema de programación dinámina, el cual encontramos en el juez virtual UVA con el número \textbf{10003}. Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático, el objetivo es realizar el código con la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+		
+		\vskip1cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Para este problema se debe averiguar el costo mínimo para cortar una vara determinada.
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+				\item Solo se puede realizar un corte a la vez.
+				
+				\item La longitud L de la vara debe ser: $L \leq 1000$.
+				
+				\item El numero de cortes N a realizar debe ser: $N \leq 50$.
+				
+				\item Al ingresar los cortes $C_{i}$ a realizar sobre la vara se debe tener en cuenta que: $0 \leq C_{i} \leq L$ .
+				
+				\item Los cortes de la colección deben ser ingresados de manera creciente estrictamente.
+				
+				\item El final del problema se da cuando ya no hayan cortes por realizar.
+				
+				\item El costo de la vara se da de acuerdo a su longitud.
+			\end{enumerate}
+	 
+	 	\vskip1cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada constará de varios casos de entrada. La primera línea de cada caso de prueba contiene un número positivo L que representa la longitud de la 						vara a cortar; la siguiente línea contendrá el número N de los cortes a realizar y la siguiente línea se compone de N números positivos, que representan 					 los lugares donde los cortes tienen que hacerse.
+					
+					El final de la entrada de los datos se indica con el número 0.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+							100
+					\]
+					\[
+							3
+					\]
+					\[
+							25 \begin{tabular}{ccc} 50 \begin{tabular}{ccc} 75 \end {tabular} \end {tabular}
+					\]
+					\[
+							10
+					\]
+					\[
+							4
+					\]
+					\[
+							4 \begin{tabular}{ccc} 5 \begin{tabular}{ccc} 7 \begin{tabular}{ccc} 8 \end {tabular} \end {tabular} \end {tabular}
+					\]
+					\[
+							0 
+					\]
+				
+				\vskip1cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Se tiene que imprimir el costo de la solución óptima del problema de corte, que es el costo mínimo de cortar la vara dada.
+					
+					\vskip0.5cm
+					
+					 	\emph{EJEMPLO ANTERIOR}
+					 	
+					 	\begin{tabular}{ccc}
+					\[
+							El corte mínimo es de 200.
+					\]
+						\end {tabular}
+						
+						\begin{tabular}{ccc}
+					\[
+							El corte mínimo es 22.
+					\]
+						\end {tabular}
+	
+			\vskip3cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+		
+			Dada la longitud de la vara L y el número de cortes a realizar N: 
+					
+					Se recibe una sucesion de cortes $C_{1}$, $C_{2}$, $C_{3}$, ..., $C_{N}$
+					
+					Donde $C_{i}$ \leq L
+					
+				\vskip3cm
+					
+		\section {Planteamiento de la solución}
+		
+		Se genera un vector en el cual la primera posición siempre sera 0, las posiciones que le siguen son los cortes ingresados y la ultima posición sera la longitud total de la vara ingresada; esto se hace con el fin de tener el valor inicial y final de la vara (desde cero hasta el tamaño de la vara) 'en el mismo vector de los cortes'.
+		Se deben evaluar cada uno de los costos totales que se pueden dar para una vara, puesto que estos varían dependiendo del orden en el que se hagan los cortes.
+		Es importante saber los distintos costos que se generan, por lo tanto utilizamos una matriz en la cual se encontraran el costo minimo para cada una de las variaciones de cortes. 
+		
+		\vskip0.5cm
+		
+		Se genera un vector G:
+		
+		\[
+			\vec{G} = \left\langle g0,g1,g2, ... , gn, gn+1 \right\rangle
+		\]
+		
+		Donde $g_{0} = 0$, $g_{n+1} = L$ y $g_{i} = C_{j}$
+		
+		La ecuación recurrente del minimo costo para cortar una vara es:
+		
+			\[
+					
+					Minimo(i,j)= \begin{cases}
+					\ $0$, & \text{si} \hskip0.3cm \neg \exists $ _{k}$ \left| \hskip0.3cm $g_{i} < g_{k} < g_{j}$
+					\\Minimo \left(i,k) \hskip0.3cm + \hskip0.3cm Minimo \left(k,j) \hskip0.3cm + \hskip0.3cm $g_{j}$ \hskip0.3cm - \hskip0.3cm $g_{i}$, & \text{si} \hskip0.3cm \exists $ _{k}$ \left| \hskip0.3cm $g_{i} < g_{k} < g_{j}$
+					\end{cases}
+			\]
+			
+			Donde  i,j,k son subindices del vector G, en el primer caso i = 0 y j = N+1; ya que inicialmente queremos saber el costo de cortar una vara que mide desde 0 hasta L
+				
+				Se crea una matriz M:
+				
+				\[
+				M= \left( \begin{array}{rrr}
+				$m_{00}$ & $m_{01}$ & $m_{02}$  ...  $m_{0N}$ \\
+				$m_{10}$ & $m_{11}$ & $m_{12}$  ...  $m_{1N}$ \\
+				$m_{20}$ & $m_{21}$ & $m_{22}$  ...  $m_{2N}$ \\
+				$m_{30}$ & $m_{31}$ & $m_{32}$  ...  $m_{3N}$ \\
+				.&.&. \\
+				.&.&. \\
+				.&.&. \\
+				$m_{N0}$ & $m_{N1}$ & $m_{N2}$ ... $m_{NN}$\\
+				\end{array}
+				\right) \]
+					
+					Donde cada $m_{ij}$ son los diferentes costes calculados.
+	
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Para este problema es necesario y conveniente utilizar programación dinámica porque no existe la necesidad de recalcular aquellas soluciones que ya teníamos en algún momento de la ejecución; ahorrando tiempo y codificación en la solución.
+				
+				\item Para cada entrada existe una única respuesta; tenga en cuenta que para esta solución al vector de cortes se le suman dos valores más que se deben tener en cuenta para su solución que son el 0 y la longitud total de la vara las cuales deben de ir en orden ascendente junto con los cortes dados.
+			
+			\end{enumerate}
+	
+\end{document}

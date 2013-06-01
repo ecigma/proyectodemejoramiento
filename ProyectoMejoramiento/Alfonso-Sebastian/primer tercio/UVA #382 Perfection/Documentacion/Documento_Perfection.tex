@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\begin{document}
+\title{ \# 382  Perfection }
+\author{Diego Alfonso Prieto Torres - Sebastian Camilo Martinez Reyes}
+\maketitle
+\tableofcontents
+%PRIMERA SECCION
+\section{Introducci\'on}
+\\Este documento es una guia de soluci\' on dirigida a los estudiantes para el enunciado \#382 Perfection del juez virtual UVA, se recomienda a los lectores hacer una previa revisi\'on del enunciado del problema.
+\section{Definici\'on del Problema}
+\subsection{Objetivos}
+Los objetivos del programa con respecto al enunciado son:
+\begin{itemize}
+\item Determinar si un numero dado es perfecto, abundante o deficiente.
+\end{itemize}
+\subsection{Precondici\'on}
+La entrada del programa es una lista de numeros enteros donde 0 es el fin de la lista, es decir no debe ser procesado.
+\subsection{Poscondici\'on}
+la salida debe ser n lineas donde cada linea corresponde al siguiente formato:
+\begin{verbatim}
+PERFECTION OUTPUT
+i-numero  <Clasificacion>
+..
+...
+...
+END OF OUTPUT
+\end{verbatim}
+\\donde i-numero representa al i-esimo numero de la lista recibida por entrada y \verb < Clasificacion\verb > =\{PERFECT,DEFICIENT,ABUNDANT\} 
+\subsection{Ejemplo}
+\begin{verbatim}
+\\Input:
+15 28 6 56 60000 22 496 0
+\end{verbatim}
+\begin{verbatim}
+\\Ouput:
+PERFECTION OUTPUT
+   15  DEFICIENT
+   28  PERFECT
+    6  PERFECT
+   56  ABUNDANT
+60000  ABUNDANT
+   22  DEFICIENT
+  496  PERFECT
+END OF OUTPUT
+\end{verbatim}
+%SEGUNDA SECCION
+\section {Definici\'on de conceptos}
+\item se define un divisor propio de $n$ como aquellos numeros que dividen a $n$  donde esos numeros estan entre: $1\leq x<n$ .
+\item se dice que un numero $n$ es Perfecto si la suma de sus divisores propios es $n$, ejemplo: los divisores propios de 6 son 1,2,3  1+2+3=6.Se dice que un numero es abundante si la suma de sus divisores propios es mayor al numero y deficiente si es menor.
+\section{Modelo de Soluci\'on}
+\subsection{Estrategia de Soluci\'on}
+Definimos el condjunto $D_n$ asi:
+\\
+\\$D_n=\{X\mid x|n \wedge x<n \mid X\}$
+\\
+\\definiremos los metodos perfecto,abundante y deficiente de la siguiente manera:
+\\
+\\Perfecto.n$\equiv (+i\mid i\in D_n:i)=n$
+\\Abundante.n$\equiv (+i\mid i\in D_n:i)>n$
+\\Imperfecto.n$\equiv (+i\mid i\in D_n:i)<n$
+\\
+Asi basta con verificar para cada uno de los elementos de la entrada estas expresiones.
+%TERCERA SECCION
+\newpage
+\section{Conclusiones}
+Este enunciado es un claro ejemplo de como podemos expresar  de manera practica las definiciones del mundo de las matematicas en soluciones de software o programas. para responder preguntas simples como si un numero es perfecto abundante o deficiente para el caso de nuestro problema a poder responder expresiones mas complejas haciendo uso de los lenguajes de programac\'on.
+\end{document}

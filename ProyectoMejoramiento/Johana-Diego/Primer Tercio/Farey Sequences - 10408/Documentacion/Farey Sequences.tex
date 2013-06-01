@@ -1,0 +1,205 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Farey Sequences}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Farey Sequences}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{10408}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar la implementación de la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la estrategia de 'divide y vencerás'.
+			
+			Esta estrategia es una técnica de diseño de algoritmos la cual consiste en dividir de forma recurrente un problema en subproblemas más sencillos hasta que se encuentre un caso base. 
+			
+			\vskip1cm
+			
+			Esta técnica consta fundamentalmente de los siguientes pasos:
+			
+			\begin{enumerate}
+			
+				\item Descomponer el problema a resolver en un cierto número de subproblemas más pequeños.
+				
+				\item Resolver independientemente cada subproblema.
+				
+				\item Combinar los resultados obtenidos para construir la solución del problema original.
+				
+			\end{enumerate}
+		
+		\vskip3cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Para este problema se tiene en cuenta la \textbf{secuencia de Farey} de orden $n$, $F_{n}$ , es la secuencia de todas las fracciones propias con denominadores que no superen $n$  junto con la fracción $1/1$ y ordenadas ascendentemente; tanto el numerador como el denominador no deben tener factores comunes.
+			
+			Por ejemplo, la secuencia de $F_{5}$ es:
+			
+			\vskip1cm
+			
+			\includegraphics[width=0.90\textwidth]{farey1.png}
+			
+			\vskip0.5cm
+			
+			La solución del problema se encuentra en que para un determinado $n$, se debe encontrar la $k -ésima$ fracción de la secuencia $F_{n}$.
+		
+			\vskip0.5cm
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+			
+				\item Para cada caso de prueba se debe ingresar dos números enteros $n$ y $k$.
+				
+				\item Para $n$ y $k$ se debe tener en cuenta que $1 \leq n \leq 1000$ y $k$ debe ser mas pequeño que la secuencia obtenida de $F_{n}$; la longitud de $F_{n}$ es de aproximadamente 0,3039635 $n^{2}$.
+				
+			\end{enumerate}
+	 
+	 	\vskip7cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada consiste en una secuencia de líneas que contienen dos números naturales $n$ y $k$ , $1 \leq n \leq 1000$ y $k$ suficientemente pequeño tal que no es el $k -ésimo$ término en $F_{n}$ . (La longitud de $F_{n}$ es de aproximadamente 0,3039635 $n^{2}$ ).
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		5 \begin{tabular}{ccc} 5 \end {tabular}
+					\]
+					\[
+					 		5 \begin{tabular}{ccc} 1 \end {tabular}
+					\]
+					\[
+					 		5 \begin{tabular}{ccc} 9 \end {tabular}
+					\]
+					\[
+					 		5 \begin{tabular}{ccc} 10 \end {tabular}
+					\]
+					\[
+					 		117 \begin{tabular}{ccc} 348 \end {tabular}
+					\]
+					\[
+					 		288 \begin{tabular}{ccc} 10000 \end {tabular}
+					\]
+				
+				\vskip2cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada caso de prueba se debe imprimir una línea con la $k -ésima$ fracción de $F_{n}$.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							1/2
+					\]
+					\[
+							1/5
+					\]
+					\[
+							4/5
+					\]
+					\[
+							1/1
+					\]
+					\[
+							9/109
+					\]
+					\[
+							78/197
+					\]
+	
+			\vskip2cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		Dado dos números enteros positivos $n$ y $k$ se debe encontrar la fracción $k-esima$ de la secuencia ordenada $F_{n}$.
+					
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para este problema utilizaremos el algoritmo de ordenamiento \textbf{Mergesort} tambien llamado algoritmos de ordenamiento por mezcla el cual consiste en el ordenamiento externo estable basado en la tecnica de divide y venceras;  el algoritmo trabaja de la siguiente forma:
+			
+				\vskip1cm
+
+				\includegraphics[width=0.50\textwidth]{mergesort1.png}
+				
+				\footnote{http://throwingcodes.blogspot.com/}
+				
+				\vskip1cm
+				
+				\begin{enumerate}
+					\item Si la longitud de la lista es 0 ó 1, entonces ya está ordenada.
+					\item Dividir la lista desordenada en dos sublistas de aproximadamente la mitad del tamaño.
+					\item Ordenar cada sublista recursivamente aplicando el ordenamiento por mezcla.
+					\item Mezclar las dos sublistas en una sola lista ordenada.
+				\end{enumerate}
+								
+				Con este algoritmo de ordenamiento podemos ordenar de manera ascendente las fracciones de la secuencia $F_{n}$ para asi determinar la $k-esima$ fracción de cada caso de prueba dada.
+			
+			\vskip1cm
+				
+			\vskip5cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Este algoritmo de ordenación es un ejemplo claro de que el método divide y vencerás es efectivo cuando tienes cantidades grandes de datos por trabajar y necesitas ahorrar tiempo y recursos.
+				
+				\item Este algoritmo de ordenamiento tiene una complejidad de $\left( n$ log $n)$ y requiere de un vector auxiliar para realizar el ordenamiento correctamente.
+			
+			\end{enumerate}
+	
+\end{document}

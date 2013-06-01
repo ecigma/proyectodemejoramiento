@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\vskip5cm
+	\textbf{All in all}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{All in all}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{10340}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar el código con la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la metodología de algoritmos voraces.
+			
+			Los algoritmos voraces  tienden a ser bastante eficientes y pueden implementarse de forma relativamente sencilla. Su eficiencia se deriva de la forma en que trata los datos, llegando a alcanzar muchas veces una complejidad de orden lineal.
+			
+			\vskip1cm
+			
+			Se deben definir los siguientes elementos según el problema que abordan:
+			
+			\begin{enumerate}
+				\item \textbf{El conjunto $C$:} de candidatos es decir las entradas del problema.
+				\item \textbf{Función solución $S$:} Comprueba, en cada paso, si el subconjunto actual de candidatos elegidos forma una solución (no importa si es óptima o no lo es).
+				\item \textbf{Función de selección:} Informa de cuál es el elemento más prometedor para completar la solución. Éste no puede haber sido escogido con anterioridad. 							Cada elemento es considerado una sola vez.
+				\item \textbf{Función de factibilidad:} determina si un conjunto es completable, es decir, si añadiendo a este conjunto nuevos candidatos es posible alcanzar una solución al problema, suponiendo que esta exista.
+				\item \textbf{Función objetivo:} Es aquella que queremos maximizar o minimizar, el núcleo del problema.
+			\end{enumerate}
+		
+		\vskip4cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+		
+			Dadas dos cadenas $s$ y $t$ , usted tiene que decidir si $s$ es una subsecuencia de $t$ , es decir, si se puede quitar caracteres de $t$ tales que la concatenación de los caracteres restantes es $s$ .
+			
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+				\item Por cada caso de prueba solo se deben ingresar dos cadenas.
+				
+				\item Se tiene en cuenta las mayúsculas y las minúsculas de cada carácter. Para esto es importante el código ASCII.
+			\end{enumerate}
+	 
+	 	\vskip6cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada contiene varios casos de prueba. Cada uno está especificado por dos cadenas s, t separados por espacios en blanco. Las entradas finalizan con EOF.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		secuencia  \begin{tabular}{ccc}  subsecuencia  \end {tabular}
+					\]
+					\[
+					 		persona  \begin{tabular}{ccc}  compresión  \end {tabular}
+					\]
+					\[
+					 		VERDI  \begin{tabular}{ccc}  vivaVittorioEmanueleReDiItalia  \end {tabular}
+					\]
+					\[
+					 		caseDoesMatter  \begin{tabular}{ccc}  CaseDoesMatter  \end {tabular}
+					\]
+				
+				\vskip2cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada caso de prueba de salida, se debe imprimir 'YES' si S es una subsecuencia de T y 'NO' si no lo es.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							Yes
+					\]
+					\[
+							No
+					\]
+					\[
+							Yes
+					\]
+					\[
+							No
+					\]
+	
+			\vskip3cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+		
+			$S$ y $T$ son listas de caracteres donde $S$ es la cadena que se debe buscar en la cadena $T$.
+		
+		\begin{enumerate}
+			
+			\item \textbf{Conjunto de candidatos $C$:} Todos los caracteres que conforman la lista $T$.
+			
+			\item \textbf{Factibilidad (Factibilidad):} La lista de caracteres $C \subseteq S$.
+			
+			\item \textbf{Función de selección (SeleccioneCaracter):} El primer carácter $x \in T$ tal que $x \in S$ y $x$ $\neg\in C$.
+			
+			\item \textbf{Función solución (Objetivo):} Lista C = lista S.
+		
+		\end{enumerate}
+					
+				\vskip2cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para cada caso de prueba se definen los elementos de los algoritmos voraces mencionados anteriormente.
+			
+			Para empezar, con la función de selección se elige un elemento $x$; luego se verifica si el elemento seleccionado $x \bigcup C$ cumple con la función de factibilidad, si cumple con la función de factibilidad el elemento $x$ se adiciona al conjunto de candidatos. Por último, cuando no existan mas elementos por seleccionar se verifica la función solución devolviendo así la respuesta correcta para cada caso de prueba.
+		
+		
+		\vskip2cm
+		
+				\subsection{Pseudocódigo propuesto}
+				
+		\vskip1cm
+					
+			Funcion Voraz (lista $S$, lista $T$)
+			 
+			Define lista $C$
+			
+			Define entero $j$
+			
+			\vskip0.5cm
+			
+			\textbf{mientras} $S$ != $C$ \textbf{ó} $j$ $<$ \textbf{Tamaño} $\left(T)$
+			
+			\vskip0.5cm
+			
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc}  $x$ := \textbf{SeleccioneCaracter} $\left(T$,$j)$   \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{si} \left(\textbf{Factibilidad} $\left(S$,$x))$ \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} $C$ := $C$ + $x$ \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} $j$ := $j$+1   \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\vskip0.5cm
+			
+			\textbf{si} \left( \textbf{Objetivo} $\left(S$,$C))$
+			
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} \textbf{devuelve} 'YES'  \end {tabular} \end {tabular}
+			
+			\textbf{si} \left( ! \textbf{Objetivo} $\left(S$,$C))$
+			
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} \textbf{devuelve} 'NO'  \end {tabular} \end {tabular} 
+
+			\vskip4cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Por las características de este problema se recomienda utilizar el enfoque de algoritmos voraces puesto que una vez incorporado un candidato a la solución, permanece ahí hasta el final; y cada vez que un candidato es rechazado, lo es para siempre. 
+				
+				\item Debemos diseñar una función de selección adecuada ya que algunas pueden garantizar la solución óptima y otras pueden ser más heurísticas.
+			
+			\end{enumerate}
+	
+\end{document}

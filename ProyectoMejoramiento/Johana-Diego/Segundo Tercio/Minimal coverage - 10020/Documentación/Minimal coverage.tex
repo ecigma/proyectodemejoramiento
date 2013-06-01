@@ -1,0 +1,241 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Minimal coverage}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section{Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Minimal coverage}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{10020}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar el código con la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la metodología de algoritmos voraces.
+			
+			Los algoritmos voraces  tienden a ser bastante eficientes y pueden implementarse de forma relativamente sencilla. Su eficiencia se deriva de la forma en que trata los datos, llegando a alcanzar muchas veces una complejidad de orden lineal.
+			
+			\vskip1cm
+			
+			Se deben definir los siguientes elementos según el problema que abordan:
+			
+			\begin{enumerate}
+				\item \textbf{El conjunto $C$:} de candidatos es decir las entradas del problema.
+				\item \textbf{Función solución $S$:} Comprueba, en cada paso, si el subconjunto actual de candidatos elegidos forma una solución (no importa si es óptima o no lo es).
+				\item \textbf{Función de selección:} Informa de cuál es el elemento más prometedor para completar la solución. Éste no puede haber sido escogido con anterioridad. 							Cada elemento es considerado una sola vez.
+				\item \textbf{Función de factibilidad:} determina si un conjunto es completable, es decir, si añadiendo a este conjunto nuevos candidatos es posible alcanzar una solución al problema, suponiendo que esta exista.
+				\item \textbf{Función objetivo:} Es aquella que queremos maximizar o minimizar, el núcleo del problema.
+			\end{enumerate}
+		
+		\vskip3cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Teniendo en cuenta varios segmentos de línea. Se debe elegir la cantidad mínima de ellos, tal que se pueda cubrir completamente el segmento dado.
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+		
+			\begin{enumerate}
+				\item La longitud $M$ del eje $X$ debe ser menor a 5000.
+				
+				\item Las coordenadas de cada segmento de línea $\left[L_{i}$,$R_{i}]$ deben ser menores a 5000
+				
+				\item Para cada caso de prueba se pueden ingresar hasta 100000 coordenadas.
+			\end{enumerate}
+	 
+	 	\vskip2cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La primera línea es el número de casos de prueba, seguido por una línea en blanco.
+
+					Cada caso de prueba en la entrada contiene un número entero $M$ $\left( 1 \leq M \leq 5000\right)$, seguido de las coordenadas en pares $\left[L_{i},R_{i}]$ $\left( \left| L_{i} \right|$,$ \left|R_{i} \right| \leq$ 5000, i $\leq$ 100000), cada uno en una línea separada. Cada caso de prueba de entrada es terminada por "0 0".
+
+Cada caso de prueba estarán separados por una sola línea.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		2
+					\]
+					\[
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		-1  \begin{tabular}{ccc}  0  \end {tabular}
+					\]
+					\[
+					 		-5  \begin{tabular}{ccc}  -3  \end {tabular}
+					\]
+					\[
+					 		2  \begin{tabular}{ccc}  5  \end {tabular}
+					\]
+					\[
+					 		0  \begin{tabular}{ccc}  0  \end {tabular}
+					\]
+					\[
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		-1  \begin{tabular}{ccc}  0  \end {tabular}
+					\]
+					\[
+					 		0  \begin{tabular}{ccc}  1  \end {tabular}
+					\]
+					\[
+					 		0  \begin{tabular}{ccc}  0  \end {tabular}
+					\]
+				
+				\vskip2cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada caso de prueba, en la primera línea de salida de su programa debe imprimir el número mínimo de segmentos de línea que pueden cubrir el segmento $\left[0$,$M]$. En las siguientes líneas, las coordenadas de segmentos, ordenados por su extremo izquierdo $\left(L_{i}\right)$, debe ser impreso en el mismo formato que en la entrada. La entrada '0 0' no se debe imprimir. Si $\left[0$,$M]$ no puede ser cubierto por los segmentos de recta dados, su programa debe imprimir '0'.
+
+Imprimir una línea en blanco entre las salidas para dos casos de prueba consecutivos.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							0
+					\]
+					\[
+					\]
+					\[
+							1
+					\]
+					\[
+							0  \begin{tabular}{ccc}  1  \end {tabular}
+					\]
+	
+			\vskip5cm
+	
+			\end{enumerate}
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		
+			'$intervalos$' y '$solucion$' son conjuntos de intervalos que se encuentran sobre el eje $X$; donde $solucion \subseteq intervalos$ y contiene todos aquellos intervalos que cubren completamente el segmento $M$.
+			
+			Para este problema necesitamos un número entero '$conexión$' el cual indica el limite superior del último intervalo agregado al conjunto '$solucion$'.
+			
+			\begin{enumerate}
+				\item \textbf{Conjunto de candidatos '$solucion$':} Aquellos segmentos que cubren al segmento M.
+			
+				\item \textbf{Función de selección (SeleccioneIntervalo):} El siguiente intervalo $X \in$ '$intervalos$' tal que $X \notin$ '$solucion$', tiene la longitud mas larga y contiene el número conexión entre sus límites.
+			
+				\item \textbf{Función solución (objetivo):} Los intervalos de '$solucion$' cubren todo el segmento $M$.
+			\end{enumerate}
+			
+				\vskip1cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para cada caso de prueba se definen los elementos de los algoritmos voraces mencionados anteriormente.
+			
+			Para empezar, con la función de selección se elige un intervalo $x$ y se adiciona al conjunto '$solucion$'. Por último, cuando no existan mas intervalos por seleccionar se verifica la función solución devolviendo así la respuesta correcta para cada caso de prueba.
+		
+		
+		\vskip0.5cm
+		
+		\subsection{Pseudocódigo propuesto}
+		
+		\vskip0.5cm
+					
+			Funcion Voraz (conjunto $intervalos$,entero $M$)
+			 
+			Define conjunto $solucion$
+			
+			Define entero $conexion$ = 0
+			
+			Define booleano $haySeleccion$ = Verdad // Esta variable indica si existen elementos en el conjunto '$intervalos$' que sean aptos. 
+			
+			\textbf{mientras} \neg \textbf{solucion} $\left(intervalos$,$M)$ $\wedge$ $haySeleccion$
+			
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc}  $x$ := \textbf{SeleccioneIntervalo} $\left(intervalos$,$conexion)$   \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc}  \textbf{ElimineIntervalo} $\left(intervalos$,$x)$   \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{si} \left($x$ != null) \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} $solucion$ := $solucion$ + $x$ \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} $conexion$ := $x$.limiteSuperior   \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{sino} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} $haySeleccion$ := falso \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+			
+				\textbf{si} $\left($\textbf{Objetivo} $\left(solucion$,$M))$ 
+			
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} \textbf{devolver} $solucion$  \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+			
+				\textbf{sino} 
+				
+				\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \textbf{entonces} \textbf{devolver} \textsl{no hay solucion}  \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+
+			\vskip1cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Para este problema se recomienda utilizar algoritmos voraces ya que cumple con las características de dichos algoritmos, teniendo en cuenta que en cada paso se toma una decisión de la que estamos seguros, las decisiones tomadas nunca se reconsideran y el algoritmo termina cuando no quedan decisiones por tomar.
+				
+				\item En este caso específico la función de factibilidad se decidió eliminar, puesto que cualquier elemento de la función selección es factible. 
+			
+			\end{enumerate}
+	
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\begin{document}
+\title{Problema $3n+1$  No.100}
+\author{Diego Alfonso Prieto Torres - Sebastian Camilo Martinez Reyes}
+\maketitle
+\tableofcontents
+%PRIMERA SECCION
+\section{Contextualizacion}\\El problema $3n+1$ es uno de los problemas de recursi\'on clasicos de las competencias de marat\'on, actualmente se encuentra una referencia al problema en el juez virtual UVA con el numeral 100 del volumen I que se encuentra en la colecci\'on de problemas.Este documento busca presentar una soluci\'on desde el enfoque matematico asi como un dise�o para la codificaci\'on de la misma, se busca que los alumnos puedan codificar una soluci\'on en cualquier lenguaje de programaci\'on a partir de el dise�o presentado en este documento.
+\section{Definicion del Problema}
+\subsection{Objetivos}
+Los objetivos a buscar con el problema son:
+\begin{itemize}
+\item Usando la sucesi\'on $3n+1$ definida como :\\\\ \item F(n)= \left\{ \begin{array}{lcc}
+             n,$f(3n+1)$ &   si  & $n es impar $\\
+             \\ n,$f(n/2)$ &  si & $n es par $\\
+             \\ n &  si  & $x = 1$
+             \end{array}\
+   \right.
+   \item
+   \\
+\item 
+\\\\ donde la longitud de la sucesi\'on se define como el numero elementos generados a partir de un numero n ,($F(n)$).\\
+\\Ejemplo: $F(22)=22,11,34,17,52,26,13,40,20,10,5,16,8,4,2,1$ la longitud de $F(22)$ es 16 \\\\Nota: la longitud de una sucesi\'on sera escrita de la siguiente manera: $len(F(n))$; luego $len(F(22)) = 16$.
+\\\\Se busca determinar la sucesi\'on con el mayor numero de elementos dado un rango $[i,j]$. Es decir la mayor de las $len(F(n))$ dado que i\leq n\leq j
+\end{itemize}
+\subsection{Precondicion}
+ Un par de enteros i, j , donde $1$ \leq i \leq j \leq $1,000,000$.
+\subsection{Poscondicion}
+.La salida deben ser 3 enteros dos de ellos seran i, j , el tercero denominado k correspondera a la mayor de las $len(F(n))$ dado que i\leq n\leq j.
+\item
+\\ \\ \\
+\item Ejemplo:\\\\ Entrada:\\\\1 10\\\\Salida:\\\\1 10 20 \\
+%SEGUNDA SECCION
+\section{Modelamiento de la Solucion}
+\subsection{Definicion de Conceptos}
+\item La sucesi\'on $3n+1$ cuenta con la propiedad de que cada uno de sus elementos es unico , por lo que podemos escribir la sucesion como un conjunto definido asi:\\ \[
+S_n=\left\{F(n): i\leq n \leq j \right\}
+\]
+\subsection{Estrategia de Solucion}
+\item La estrategia consiste en definir cada uno de los $S_n$ dentro del rango $[i,j]$ , para luego encontrar el maximo de los $\#S_n$ .Es decir la soluci\'on estara dada por:\\ \[\left(\uparrow k\mid k=\# S_n \wedge i\leq n \leq j)
+\]
+\subsection{Leve Nocion de Estructura de Datos}
+Para poder implementar el ejercicio de una forma correcta y eficiente, se recomienda usar un procedimiento recurrente definiendo la sucesi\'on $3n+1$ donde en simultaneo se esten contando los elementos que genera la misma. con el fin de hacer la comparacion entre las cantidades de elementos de cada una de las sucesiones generadas por el rango $[i,j]$.
+%TERCERA SECCION
+\section{Conclusiones}
+Con este problema podemos observar como la recursi\'on nos ayuda a generar soluciones de una manera mas optima y con un consumo de menos recursos (memoria y tiempo) comparado con una posible soluci\'on orientada a un modelo iterativo, como consecuencia observamos que gracias a nuestro analisis podemos obviar la generaci\'on de cada uno de los conjuntos. Es decir basta con contar las veces que nuestra aplicaci\'on hace un llamado a nuestra funci\'on recurrente 
+\end{document}

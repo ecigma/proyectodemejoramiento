@@ -1,0 +1,97 @@
+\documentclass[12pt]{article} 
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{graphicx}
+
+
+\title{Tira Y afloje}
+\author{Sara Chica, Rodrigo Gualtero}
+\date{17 de Noviembre, 2012}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción}
+Este es un problema de la UVA, identificado con el código \textit{10032}, el cual consiste en un juego de \textsl{tira y afloja} donde se deben encontrar dos equipos que cumplan con las siguientes condiciones:
+\begin{enumerate}
+	\item La cantidad de personas en los equipos no puede diferir en más de una.
+	\item El peso de las personas en cada equipo debe ser tan igual como sea posible.
+\end{enumerate}
+
+En el siguiente ejemplo (Ejemplo 1) se tienen \textsl{3} personas y se deben formar dos grupos. Las personas tienen los siguientes pesos:
+\begin{enumerate}
+	\item Persona 1: 100
+	\item Persona 2: 90
+	\item Persona 3: 200
+\end{enumerate}
+Donde los dos equipos deberían estar conformados de la siguiente manera:
+\\Equipo 1: Persona 1 + Persona 2
+\\Equipo 2: Persona 3
+
+\section{Definición del problema}
+En este problema se desea encontrar la mejor manera para formar 2 equipos donde ambos difieran a la mucho en 1 persona y donde sus pesos sean lo más equitativos posible, es decir la diferencia entre ambos pesos debe ser la menor.
+\subsection{Entrada}
+Se recibe un número entero que indica la cantidad de casos que entran.
+\\De ahí en adelante entran la cantidad de personas, seguido de el peso de cada una de ellas,cada uno en una linea aparte.
+\subsection{Salida}
+Por cada caso de prueba se debe imprimir una linea que contenga el peso de cada equipo, en donde se da el menor de primeras.
+
+\section{Modelamiento matemático}
+Este problema se puede modelar como un árbol de posibilidades donde cada opción de organizarlos es un nodo del árbol, el cual a su vez tiene por dentro tiene la representación de lo que serían los equipos.
+
+Finalmente se tiene $(n,p1,p2)$; donde:
+\\ \textsl{n} es la cantidad de personas que hay.
+\\ \textsl{p1} es el peso del equipo 1.
+\\ \textsl{p2} es el peso del equipo 2.
+\\En el ejemplo 1 se observan las siguientes posibilidades:
+
+\begin{enumerate}
+	\item Equipo 1: Persona 1 + Persona 2 
+				\\Equipo 2: Persona 3
+	\item Equipo 1: Persona 1 + Persona 3 
+				\\Equipo 2: Persona 2
+	\item Equipo 1: Persona 2 + Persona 1 
+				\\Equipo 2: Persona 3
+	\item Equipo 1: Persona 2 + Persona 3 
+				\\Equipo 2: Persona 1
+	\item Equipo 1: Persona 3 + Persona 1 
+				\\Equipo 2: Persona 2
+	\item Equipo 1: Persona 3 + Persona 2 
+				\\Equipo 2: Persona 1
+\end{enumerate}
+
+
+\section{Planteamiento de la Solución}
+Para determinar la solución del problema se deben emplear varios algoritmos de recorrido sobre árboles con el fin de encontrar todas las posibilidades para formar dos equipos con las características necesarias; estos algoritmos se conocen comunmente bajo el tema de rastreo exhaustivo o rastreo exhaustivo por retroceso.
+\\Lo que se debe saber acerca de los algoritmos es que por su complejidad solo son válidos en espacios de resultados que no superen las 8! posibilidades ya que generalmente las máquinas no pueden procesar esto. 
+\\El algoritmo usado para esto es \textbf{backtracking o vuelta hacía atras}, el cual consiste en realizar busquedas sistemáticas sobre el árbol de tal forma que separa esta búsqueda en sub tareas para ir generando soluciones parciales al problema a medida que progresa en el recorrido.
+\\En el ejemplo visto a lo largo del documento se descartarían 3 posibilidades, pues, el orden de las personas no es importante para tener los equipos, por lo tanto las opciones \textit{3}, \textit{5} y \textit{6} se descartan, teniendo así las siguientes opciones:
+
+\begin{enumerate}
+	\item Equipo 1: Persona 1 + Persona 2 
+				\\Equipo 2: Persona 3
+	\item Equipo 1: Persona 1 + Persona 3 
+				\\Equipo 2: Persona 2
+	\item Equipo 1: Persona 2 + Persona 3 
+				\\Equipo 2: Persona 1
+\end{enumerate}
+Sin embargo, estas no son contempladas directamente, pues a medida que se recorre el grafo se busca la solución; es decir, mientras se recorre el grafo se va buscando la mejor posibilidad y se va almacenando, para luego no tener nuevamente que realizar una nueva búsqueda en todas las posibilidades.
+\\Es así como en el ejemplo se define que la mejor posibilidad es:
+\\Equipo 1: Persona 1 + Persona 2
+\\Equipo 2: Persona 3
+\section{Conclusiones}
+\begin{enumerate}
+	\item	Es importante investigar sobre este tipo de algoritmos de recorridos sobre árboles porque permiten abarcar todas las posibilidades para solucionar un problema.
+	\item Estos algoritmos que resuelven problemas en donde se debe encontrar todas las posibilidades de éxito tienen aplicaciones en probabilidad y estadistica.
+	\item Este tipo de problemas permite que los estudiantes se den cuenta de lo importante que puede ser para un sistema informático conocer todos los posibles caminos que puede abordar si lo que se quiere es evitar fallas contemplando todas las posibilidades que pueden generarlas.
+	\item Por medio de los tipos de algoritmos de recorridos de árboles se puede abarcar todas las posibilidades para solucionar un problema de este tipo, por lo tanto resulta importante conocerlos y saber como utilizarlos, así de esta forma se llega a saber si es la mejor solución o existe otra mejor.
+\end{enumerate}
+\end{document}

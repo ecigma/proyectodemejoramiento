@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Wifi}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Wifi}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{11516}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar la implementación de la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la estrategia de 'divide y vencerás'.
+			
+			Esta estrategia es una técnica de diseño de algoritmos la cual consiste en dividir de forma recurrente un problema en subproblemas más sencillos hasta que se encuentre un caso base. 
+			
+			\vskip1cm
+			
+			Esta técnica consta fundamentalmente de los siguientes pasos:
+			
+			\begin{enumerate}
+			
+				\item Descomponer el problema a resolver en un cierto número de subproblemas más pequeños.
+				
+				\item Resolver independientemente cada subproblema.
+				
+				\item Combinar los resultados obtenidos para construir la solución del problema original.
+				
+			\end{enumerate}
+		
+		\vskip4cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			 Los habitantes de una calle principal se reunieron y decidieron que iban a instalar internet inalámbrico con la cobertura de todas las casas por lo tanto, se desea colocar los puntos de acceso disponibles de modo que la distancia máxima entre cualquier casa y el punto de acceso más cercano a él es tan pequeño como sea posible. 
+		
+			\vskip0.5cm
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+			
+				\item Para cada caso de prueba se deben ingresar dos números enteros positivos $n$ (número de puntos de acceso que los residentes pueden comprar) y $m$ (número de viviendas en la calle principal) seguido por una secuencia de $m$ números enteros que contienen los números de las casas en la calle principal.
+				
+				\item Para $m$ se debe tener en cuenta que $1 \leq b \leq 100000$ y para cada número de la secuencia dada se debe tener en cuenta que $1 \leq M_{i} < 1000000$
+				
+				\item El número de cada vivienda es el número de metros del final de la calle a la casa.
+				
+			\end{enumerate}
+	 
+	 	\vskip7cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La primera línea de entrada contiene un entero que especifica el número de casos de prueba a seguir. La primera línea de cada caso de prueba contiene dos números enteros positivos $n$ , el número de puntos de acceso que los residentes pueden comprar, y $m$ , el número de viviendas en la calle principal. Las siguientes $m$ líneas contienen los números de las casas en la calle principal, un número de la casa en cada línea. No habrá más de $100 000$ casas en la calle principal, y los números de las casas no será mayor de un millón.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		2 \begin{tabular}{ccc} 3 \end{tabular}
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		3
+					\]
+					\[
+					 		10
+					\]
+				
+				\vskip3cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada caso de prueba, la salida es una línea que contiene un número, que es la distancia máxima entre cualquier casa y el punto de acceso más cercano a él. Redondea el número a la décima parte de un metro, y la muestran con exactamente un dígito después del punto decimal.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							1,0
+					\]
+	
+			\vskip3cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		$RangoWifi$ es el intervalo $\left(i$,$j)$ que cubre los routers o puntos de acceso de internet.
+					
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Debido a que se va a utilizar la estrategia de búsqueda binaria de divide y vencerás el primer $RangoWifi$ va a ser la máxima distancia posible que es desde 0 hasta 1000000. Luego se encuentra la mitad del rango y se verifica si la cantidad de casas que se encuentran entre esta mitad y el límite superior de $RangoWifi$ es menor que el número de routers y se sigue haciendo este proceso hasta que el número de casas supere al de los routers.
+			 
+Después de esto se repite todo el procedimiento pero ya no se modifica el límite superior sino el límite inferior de $RangoWifi$ hasta que la distancia entre los dos limites sea menor o igual a 1. Esto nos permite tener la parte entera de la respuesta, para obtener la parte decimal se repite todo el procedimiento pero multiplicando por 10 todos los valores.
+
+La respuesta va a tener dos partes:
+
+	\begin{tabular}{ccc} La parte entera va a ser el límite superior de $RangoWifi$ divido entre 10. \end{tabular}
+
+ 	\begin{tabular}{ccc} La parte decimal va a ser el residuo de la división entre el límite superior de RangoWifi y 10. \end{tabular}
+					
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Este algoritmo de ordenación es un ejemplo claro de que el método divide y vencerás es efectivo cuando tienes cantidades grandes de datos por trabajar y necesitas ahorrar tiempo y recursos.
+			
+			\end{enumerate}
+	
+\end{document}

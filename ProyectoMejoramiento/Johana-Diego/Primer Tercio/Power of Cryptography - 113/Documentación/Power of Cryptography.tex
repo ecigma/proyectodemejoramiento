@@ -1,0 +1,179 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Age Sort}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Age Sort}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{113}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar la implementación de la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la estrategia de 'divide y vencerás'.
+			
+			Esta estrategia es una técnica de diseño de algoritmos la cual consiste en dividir de forma recurrente un problema en subproblemas más sencillos hasta que se encuentre un caso base. 
+			
+			\vskip1cm
+			
+			Esta técnica consta fundamentalmente de los siguientes pasos:
+			
+			\begin{enumerate}
+			
+				\item Descomponer el problema a resolver en un cierto número de subproblemas más pequeños.
+				
+				\item Resolver independientemente cada subproblema.
+				
+				\item Combinar los resultados obtenidos para construir la solución del problema original.
+				
+			\end{enumerate}
+		
+		\vskip4cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Este problema implica el cálculo eficiente de la raíz entera de un conjunto de números.
+		
+			\vskip0.5cm
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+			
+				\item Para cada caso de prueba se debe ingresar un número $n \geq 1$ y un número $p \geq 1$
+				
+				\item Para todos los pares de números ingresados se tiene en cuenta que $1 \leq n \leq 200$ y $1 \leq p \leq 10^{101}$ .
+				
+			\end{enumerate}
+	 
+	 	\vskip7cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada consiste en una secuencia de pares de números enteros $n$ y $p$ con cada número entero en una línea diferente. Para todos los pares $1 \leq n \leq 200$ , $1 \leq p \leq 10^{101}$ existe un entero $k$, $1 \leq k \leq 10^{9}$ tal que $k^{n} = p$.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		2
+					\]
+					\[
+					 		16
+					\]
+					\[
+					 		3
+					\]
+					\[
+					 		27
+					\]
+					\[
+					 		7
+					\]
+					\[
+					 		4357186184021382204544
+					\]
+				
+				\vskip2cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada par de enteros $n$ y $p$ el valor $\sqrt[n]{p}$ debe ser impreso, es decir, el número $k$ de tal manera que $k^{n} = p$.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							4
+					\]
+					\[
+							3
+					\]
+					\[
+							1234
+					\]
+	
+			\vskip2cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		Dados dos números enteros positivos $n$ y $p$ se debe plantear un $k$ tal que $k^{n} = p$. 
+					
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para cada caso de prueba se tendrá un número $k$ que varía entre $1 \leq k \leq \left(p\div n)$ hasta que $k^{n} = p$ en el cual se utilizará una función recursiva para calcular los exponentes de un número.
+			
+				\vskip2cm
+			
+			La función recursiva para calcular los exponentes de un número será la siguiente:
+				
+					\[
+							expo(p,n) = \begin{cases}
+							\ $1$ ,& \text{si} \hskip0.3cm $n$ = 0
+							\\ \text{expo} $(k,n/2) \times$ expo $(k$,$n/2)$ ,& \text{si} \hskip0.3cm $n$ \text{ es par}
+							\\\ \text{expo} $ k \times (k,n-1)$ ,& \text{si} \hskip0.3cm $n$ \text{ es impar}
+							\end{cases}
+					\]
+							
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Por las características de este problema se recomienda utilizar el enfoque de la estrategia de 'divide y vencerás' puesto que cada problema se reduce a un único subproblema más simple que un algoritmo general.
+				
+				\item Para este problema utilizamos una función recursiva para calcular los exponentes de un número que torna el problema a ser más eficiente, sin embargo,  se pueden implementar algoritmos no recursivos que almacenen las soluciones parciales en una estructura de datos explícita, como puede ser una pila o cola.
+			
+			\end{enumerate}
+	
+\end{document}

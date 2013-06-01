@@ -1,0 +1,46 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\begin{document}
+\title{ \# 10783  Odd Sum }
+\author{Diego Alfonso Prieto Torres - Sebastian Camilo Martinez Reyes}
+\maketitle
+\tableofcontents
+%PRIMERA SECCION
+\section{Introducci\'on}
+\\Este documento es una guia de soluci\' on dirigida a los estudiantes para el enunciado \#10783 Odd sum del juez virtual UVA, se recomienda a los lectores hacer una previa revisi\'on del enunciado del problema asi como una revisi\'on de los siguientes temas :\\\\ -Definici\'on de rangos\\ - Clasificaci\'on de rangos\\ - Definici\'on de paridad de los numeros .
+\section{Definici\'on del Problema}
+\subsection{Objetivos}
+Los objetivos del programa con respecto al enunciado son:
+\begin{itemize}
+\item Determinar la suma de todos los numeros impares que se encuentran en el rango $[a,b]$.
+\end{itemize}
+\subsection{Precondici\'on}
+La entrada del programa consta de un valor entero $T$ que determinara el numero de casos a analizar, seguido de una serie de $2*T$ numeros enteros (cada caso es representado por una pareja de numeros).
+\subsection{Poscondici\'on}
+la salida debe ser las expresiones case $n$: $SUM$ donde 1\leq $n$ \leq $T$. 
+\\\\$SUM=(+i\mid a \leq i \leq b \wedge ¬(2 | i) :i)$.
+\item cada una de las expresiones deben de estar separadas por un retorno de carro.
+%SEGUNDA SECCION
+\newpage
+\section{Modelo de Soluci\'on}
+\subsection{Estrategia de Soluci\'on}
+Basta con recorrer el rango $[a b]$ e ir revisando la paridad de los numeros, en el caso de ser impar añadirlo a una variable de acumulaci\'on: \\
+\begin{verbatim}
+ //fragmento de Pseudocodigo
+ //inicio
+ 	int suma:=0;
+ 	int i:=a
+     do (i<= b) {
+             if(i mod 2 == 0){ 
+                     suma:= suma + i;
+                                }
+              i:=i+1;
+              }
+//fin
+\end{verbatim}
+\item 
+%TERCERA SECCION
+\section{Conclusiones}
+ Este tipo de enunciados nos permite entender como podemos trasladar las operatorias del lenguaje discreto al codigo de un lenguaje de programaci\'on, como se puede ver en el modelo de soluci\'on el fragmento de pseudocodigo es la representacion de la operatoria $SUM$. 
+\end{document}

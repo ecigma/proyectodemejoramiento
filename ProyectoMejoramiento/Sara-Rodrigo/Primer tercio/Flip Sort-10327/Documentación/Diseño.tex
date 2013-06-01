@@ -1,0 +1,71 @@
+\documentclass[12pt]{article} 
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{graphicx}
+
+\title{FLIP SORT}
+\author{Sara Chica, Rodrigo Gualtero}
+\date{01 de Diciembre, 2012}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción}
+Este es un problema de la UVA, identificado con el código \textit{10327}, en el cual se desea saber la cantidad de pasos mínimo para ordenar un conjunto de números enteros en forma ascendente.
+\\A continuación se presentan 2 ejemplos de nodos:
+\\
+\\En el primer ejemplo se presenta un conjunto ordenado de 3 números:
+\begin{center}
+$A=\left\{1,2,3\right\}$
+\\Ejemplo 1
+\end{center}
+Por lo tanto no se necesitan pasos para organizarlo.
+\\En el segundo ejemplo se presenta un conjunto desordenado de 3 números:
+\begin{center}
+$B=\left\{2,3,1\right\}$
+\\Ejemplo 2
+\end{center}Se necesitan 2 pasos para ordenarlo.
+\section{Definición del problema}
+Este problema busca ordenar un conjunto de números en forma ascendente, es decir de menor a mayor. 
+\subsection{Entrada}
+Entra cada uno de los casos de prueba en dos partes.
+\\La primera consta de un número que indica la cantidad de enteros que se deben organizar, y finalmente entran todos números en el orden actual.
+\subsection{Salida}
+Imprime la siguiente frase: 
+\begin{center}
+\textsl{Minimum exchange operations : X.}
+\end {center}
+donde X es un entero que indica la cantidad de pasos que tuvo que hacer para organizar el vector.
+\section{Modelamiento matemático}
+Se sabe que el tren está organizado si:
+\[
+Ordenado\equiv(\forall i,j | 0<i<j<100 : V_{i+1}=V_{j})
+\]
+Sobre este problema se podría extender un árbol de posibilidades, el cual tendría todas las posibles permutaciones que habrían, donde una de estas es la que satisface la condición de salida: Tener todos los números ordenados.
+\\Aplicando esto ambos ejemplos se tendría el siguiente árbol de posibilidades:
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Arbol.png}
+	\\Árbol de posibilidades para un conjunto de 3 enteros.
+\end{center}
+\section{Planteamiento de la Solución}
+Aunque abrir un árbol de posibilidades permite analizar mejor el problema, no es la mejor solución, debido a que es poco eficiente; es por ello que existen varios algoritmos de ordenamiento, los cuales permiten organizar una lista en una secuencia dada. Para este problema se sugiere algún algoritmo de Intercambio, por lo cual se usará el algoritmo burbuja.
+\\Ordenamiento por Burbuja: Consiste en organizar el vector revisando cada elemento de la lista y comparándolo con el siguiente, de esta forma si están en el orden equivocado se deben intercambiar. 
+\\Para el ejemplo 2 se tendrían los siguientes pasos
+\begin{center}
+Origina: $A=\left\{2,3,1\right\}$
+\\Paso 1: $A=\left\{2,1,3\right\}$
+\\Paso 2: $A=\left\{1,2,3\right\}$
+\end{center} 
+\section{Conclusiones}
+\begin{enumerate}
+	\item Conocer los algoritmos de ordenamiento es importante para optimizar algunos otros algoritmos como los de búsqueda y fusión; ya que estos pueden requerir listas ordenadas para tener una ejecución rápida.
+	\item El método de ordenamiento burbuja es el algoritmo de ordenamiento más usado en los lenguajes de programación, sin embargo, no es el más eficiente.
+\end{enumerate}\end{document}

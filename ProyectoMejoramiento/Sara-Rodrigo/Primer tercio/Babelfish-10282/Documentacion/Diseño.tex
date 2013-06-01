@@ -1,0 +1,45 @@
+\documentclass[12pt]{article} 
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{graphicx}
+
+\title{BABELFISH}
+\author{Sara Chica, Rodrigo Gualtero}
+\date{08 de Diciembre, 2012}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción}
+Este es un problema de la UVA, identificado con el código \textit{10282}, en el cual se desea saber el significado de ciertas palabras de Waterloo.
+\\Es decir, si se tiene en el diccionario lo siguiente:
+\begin{center}
+dog ogday
+\end{center}
+Entonces se sabeque cuando se tiene en la entrada <<ogday>>, esto quiere decir dog
+\section{Definición del problema}
+Este problema busca saber el significado de ciertas palabras por medio de las palabras que existen en un diccionario.
+\subsection{Entrada}
+Entra una lista de palabras, máximo 100000, con su significado en el otro idioma. 
+\\Seguido a ello entra una linea en blanco, seguido de las palabras que se quieren saber.
+\subsection{Salida}
+Imprime el significado de cada palabra que se quiere saber.
+\\Cuando una palabra no existe en el diccionario, debe imprimir "eh".
+\section{Modelamiento matemático}
+Es importante encontrar fácilmente cada una de las palabras, debido a que son muchas, por lo tanto se debe usar una estructura de datos que facilite esto.
+\section{Planteamiento de la Solución}
+La mejor estructura de datos que se puede usar es una hashTable, ya que esta permite una busqueda más eficientes, funcionando con una clave generada; permitiendo así un fácil acceso a los elementos.
+\\En este caso la clave es la palabra en el idiomade Waterloo y el elemento es el significado en ingles.
+\section{Conclusiones}
+\begin{enumerate}
+	\item La HashTable permite busquedas más eficientes, ya que utiliza una clave generada, y su tiempo de busqueda depende del número de elementos que tenga.
+	\item Las tablas hash almacenan la información en posiciones pseudo-aleatorias, así que el acceso ordenado a su contenido es bastante lento.
+\end{enumerate}\end{document}

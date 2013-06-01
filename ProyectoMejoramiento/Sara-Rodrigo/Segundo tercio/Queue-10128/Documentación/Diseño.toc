@@ -1,0 +1,8 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\'on}{1}
+\contentsline {section}{\numberline {2}Definici\'on del problema}{2}
+\contentsline {subsection}{\numberline {2.1}Entrada}{2}
+\contentsline {subsection}{\numberline {2.2}Salida}{3}
+\contentsline {section}{\numberline {3}Modelamiento matem\'atico}{3}
+\contentsline {section}{\numberline {4}Planteamiento de la Soluci\'on}{3}
+\contentsline {section}{\numberline {5}Conclusiones}{4}

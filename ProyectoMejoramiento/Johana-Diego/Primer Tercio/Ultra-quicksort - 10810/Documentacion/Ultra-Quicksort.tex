@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Ultra-Quicksort}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl '\textbf{Ultra-Quicksort}' es un problema de programación el cual encontramos en el juez virtual UVA con el número \textbf{10810}. 
+			
+			Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático teniendo en cuenta que el objetivo es realizar la implementación de la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+			
+			Este problema puede ser resuelto utilizando la estrategia de 'divide y vencerás'.
+			
+			Esta estrategia es una técnica de diseño de algoritmos la cual consiste en dividir de forma recurrente un problema en subproblemas más sencillos hasta que se encuentre un caso base. 
+			
+			\vskip1cm
+			
+			Esta técnica consta fundamentalmente de los siguientes pasos:
+			
+			\begin{enumerate}
+			
+				\item Descomponer el problema a resolver en un cierto número de subproblemas más pequeños.
+				
+				\item Resolver independientemente cada subproblema.
+				
+				\item Combinar los resultados obtenidos para construir la solución del problema original.
+				
+			\end{enumerate}
+		
+		\vskip4cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Este problema consiste en determinar el número de operaciones que Ultra-QuickSort necesita llevar a cabo para ordenar una secuencia de entrada.
+		
+			\vskip0.5cm
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+			
+				\item Para cada caso de prueba se debe ingresar un número $n$ y una secuencia de $n$ números enteros.
+				
+				\item Para $n$ se debe tener en cuenta que $1 \leq n < 500000$ y que cada número que conforma la secuencia dada debe ser $0 \leq n_{i} \leq 999999999$ .
+				
+			\end{enumerate}
+	 
+	 	\vskip7cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada contiene varios casos de prueba. Cada caso de prueba comienza con una línea que contiene un único entero $n < 500.000$. Cada una de las siguientes $n$ líneas contiene un único número entero $0 \leq a_{i} \leq 999.999.999$ , el $i -ésimo$ elemento de entrada de secuencia. La entrada es terminada por una secuencia de longitud $n = 0$. Esta secuencia no debe ser procesada.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		5
+					\]
+					\[
+					 		9
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		0
+					\]
+					\[
+					 		5
+					\]
+					\[
+					 		4
+					\]
+					\[
+					 		3
+					\]
+					\[
+					 		1
+					\]
+					\[
+					 		2
+					\]
+					\[
+					 		3
+					\]
+					\[
+					 		0
+					\]
+				\vskip2cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada secuencia de entrada, el programa imprime una sola línea que contiene un número entero $op$ , el número mínimo de operaciones de intercambio necesarias para reordenar la secuencia de entrada dada.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							6
+					\]
+					\[
+							0
+					\]
+	
+			\vskip2cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+			
+		Dado un número entero positivo $n$, se recibe una secuencia de $n$ números enteros: 
+		
+			\begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} \begin{tabular}{ccc} $E_{1}$, $E_{2}$, $E_{3}$, ..., $E_{n}$ \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+					
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Para este problema utilizaremos el algoritmo de ordenamiento \textbf{Quicksort} que permite, en promedio, ordenar $n$ elementos en el menor tiempo posible; el algoritmo trabaja de la siguiente forma:
+			
+				\begin{enumerate}
+				\includegraphics[width=0.50\textwidth]{quicksort2.png}
+				
+				\footnote{http://www.algolist.net/Algorithms/Sorting/Quicksort}
+				
+				\vskip1cm
+				
+				\item Elegir un elemento de la lista de elementos a ordenar, al que llamaremos pivote.
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort3.png}
+				
+				\footnote{http://www.algolist.net/Algorithms/Sorting/Quicksort}
+				
+				\vskip1cm
+				
+				\item Resituar los demás elementos de la lista a cada lado del pivote, de manera que a un lado queden todos los menores que él, y al otro los mayores. Los elementos iguales al pivote pueden ser colocados tanto a su derecha como a su izquierda, dependiendo de la implementación deseada. En este momento, el pivote ocupa exactamente el lugar que le corresponderá en la lista ordenada.
+				
+					\footnote{http://www.algolist.net/Algorithms/Sorting/Quicksort}
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort4.png}
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort5.png}
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort6.png}
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort7.png}
+				
+				\vskip1cm
+				
+				\item La lista queda separada en dos sublistas, una formada por los elementos a la izquierda del pivote, y otra por los elementos a su derecha.
+				\item Repetir este proceso de forma recursiva para cada sublista mientras éstas contengan más de un elemento. Una vez terminado este proceso todos los elementos estarán ordenados. Como se puede suponer, la eficiencia del algoritmo depende de la posición en la que termine el pivote elegido.
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort8.png}
+				
+				\vskip1cm
+				
+				\includegraphics[width=0.50\textwidth]{quicksort9.png}
+				
+				\footnote{http://www.algolist.net/Algorithms/Sorting/Quicksort}
+				
+				\vskip1cm
+						
+						\item En el mejor caso, el pivote termina en el centro de la lista, dividiéndola en dos sublistas de igual tamaño. En este caso, el orden de complejidad del algoritmo es $O\left(n$ log $n)$.
+						\item En el peor caso, el pivote termina en un extremo de la lista. El orden de complejidad del algoritmo es entonces de $O\left(n^{2})$. El peor caso dependerá de la implementación del algoritmo, aunque habitualmente ocurre en listas que se encuentran ordenadas, o casi ordenadas.
+				\end{enumerate}
+							
+						Para este problema debemos contar el número de veces que el algoritmo tiene que implementar el metodo de ordenamiento solo si es necesario, es decir, si la lista ingresada ya esta ordenada no debe ingresar al metodo de ordenamiento.
+						
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Este algoritmo de ordenación es un ejemplo claro de que el método divide y vencerás es efectivo cuando tienes cantidades grandes de datos por trabajar y necesitas ahorrar tiempo y recursos.
+				
+				\item En el método de ordenación quicksort es mejor tener el pivote en el medio del vector puesto que es mas fácil de implementar y su código es mas sencillo.
+			
+			\end{enumerate}
+	
+\end{document}

@@ -1,0 +1,196 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Is Bigger Smarter?}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl \textbf{Is Bigger Smarter}? es un problema de programación dinámina, el cual encontramos en el juez virtual UVA con el número \textbf{10131}. Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático, el objetivo es realizar el código con la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+		
+		\vskip3cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+			
+			Se deben tomar los datos de una colección de elefantes y mostrar el subconjunto mas grande de manera que los pesos están aumentando, pero el coeficiente intelectual disminuyendo.
+		
+			Se deben tener en cuenta las siguientes restricciones para la solución del problema:
+			
+			\begin{enumerate}
+				\item Cada elefante que se ingresa debe tener sus respectivos datos, es decir peso y coeficiente intelectual.
+				
+				\item Tanto el peso como el coeficiente intelectual se manejaran en un rango entre 1 y 10000.
+				
+				\item Solo se podran ingresar hasta 1000 elefantes.
+				
+				\item Dos elefantes pueden tener el mismo peso ó el mismo coeficiente intelectual, incluso el mismo peso y coeficiente intelectual.
+				
+				\item Todas las desigualdades son estrictas en la solución: Los pesos deben ser estrictamente creciente, y el coeficiente intelectual debe ser estrictamente decreciente.
+			\end{enumerate}
+	 
+	 	\vskip3cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					Se ingresa una pareja de números enteros; el primero representa el peso en kilogramos y el segundo representa el coeficiente intelectual del elefante.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+					 		2  \begin{tabular}{ccc}  8  \end {tabular}
+					\]
+					\[
+					 		1  \begin{tabular}{ccc}  9  \end {tabular}
+					\]
+					\[
+					 		3  \begin{tabular}{ccc}  7  \end {tabular}
+					\]
+				
+				\vskip1cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Se imprime la longitud de la secuencia mas grande de elefantes seguido por los elefantes que la conforman.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO ANTERIOR}
+					\]
+					\[
+							3
+					\]
+					\[
+							2
+					\]
+					\[
+							1
+					\]
+					\[
+							3
+					\]
+	
+			\vskip1cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+		
+			Un elefante se modela como una pareja ordenada $\left(P,IQ \right)$ donde P:peso, IQ:coeficiente intelectual y : 
+					
+					\[
+						1 \leq P \leq 10000 \wedge 1 \leq IQ \leq 10000
+					\]
+					
+					Dada una lista de elefantes de la forma: 
+					\[
+						$e_{i}$ = $\left(P,IQ\right)$ donde $1 \leq i \leq 1000$
+					\]
+					
+					Una entrada esta dada por una sucesión de elefantes $e_{1}$,$e_{2}$,$e_{3}$, ... , $e_{n}$.
+					
+				\vskip3cm
+					
+		\section {Planteamiento de la solución}
+		
+		\vskip0.5cm
+		
+			Se va a ordenar la lista de elefantes ingresada, de manera que el coeficiente intelectual sea descendente; siendo asi se puede encontrar el elefante estrictamente anterior que cumpla con las restricciones, es decir mayor coeficiente intelectual y menor peso, llevandonos a encontrar una pequeña subsecuencia junto con su tamaño, donde el final de esta es el elefante que estamos evaluando. Al encontrar que el elefante anterior ya tiene una subsecuencia formada se suma al tamaño de la subsecuencia que se esta evaluando.
+Es importante saber cual es el tamaño y cuales son los elefantes que conforman la secuencia mas larga, por lo tanto utilizamos una matriz en la cual, en la primera fila se encontraran los tamaños de las subsecuencias de cada elefante ingresado y las demás filas seran los elefantes anteriores al evaluado. 
+		
+		
+		\vskip2cm
+		
+			Se genera un vector B de elefantes ordenados por IQ de manera descendente.
+		
+			\[
+				 \vec{B} = \left\langle f1,f2,f3, \ldots fn \right\rangle
+			\]
+			
+			f es un elefante donde:
+			
+				\begin{tabular}{ccc} $f_{i} = \left( P_{i} , IQ_{i}) , f_{i-1} = \left( P_{i-1}, IQ_{i-1})$ tal que $IQ_{i} < IQ_{i-1}$ \end {tabular}
+			
+			Principalmente se piensa en guardar los tamaños de las subsecuencias formadas con cada elefante en un vector T:
+				\[
+				 \vec{T} = \left\langle t1,t2,t3, \ldots tn \right\rangle
+				\]
+			
+			donde la ecuación recurrente del mayor tamaño de secuencia de elefantes es:
+		
+				\begin{tabular}{ccc}	$t_{i} = 1 + $ MAX $\left\{t \left(j \right) : 1 \leq j < i \wedge f_{j}$.Peso $ < f_{i}$.Peso $\}$ \end {tabular}
+	
+			Para guardar no solo los tamaños sino también los elefantes que conforman la secuencia se crea una matriz L:
+				
+				\[
+				L= \left( \begin{array}{rrr}
+				$t_{00}$ & $t_{01}$ & $t_{02}$  ...  $t_{0n}$ \\
+				$g_{10}$ & $g_{11}$ & $g_{12}$  ...  $g_{1n}$ \\
+				$g_{20}$ & $g_{21}$ & $g_{22}$  ...  $g_{2n}$ \\
+				$g_{30}$ & $g_{31}$ & $g_{32}$  ...  $g_{3n}$ \\
+				.&.&. \\
+				.&.&. \\
+				.&.&. \\
+				$g_{n0}$ & $g_{n1}$ & $g_{n2}$ ... $g_{nn}$\\
+				\end{array}
+				\right) \]
+					
+					Donde cada $t_{0i}$ es el tamaño de la subsecuencia más grande que termina en el elefante $f_{i}$, y $g_{ij}$  son los elefantes que conforman la subsecuencia.
+					
+					Al obtener la matriz podemos encontrar el tamaño más grande en la primera fila; siendo así, podemos obtener los elefantes de la subsecuencia en la misma columna del tamaño pero variando la fila hasta encontrar el último elefante.
+		
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Para este problema es necesario y conveniente utilizar programación dinámica porque no existe la necesidad de recalcular aquellas soluciones que ya teníamos en algún momento de la ejecución; ahorrando tiempo y codificación en la solución.
+				
+				\item Para un problema puede existir muchas soluciones; tenga en cuenta que el vector de elefantes inicial puede ser ordenado tanto por coeficiente intelectual como por peso, manteniendo siempre las restricciones de la solución.
+			
+			\end{enumerate}
+	
+\end{document}

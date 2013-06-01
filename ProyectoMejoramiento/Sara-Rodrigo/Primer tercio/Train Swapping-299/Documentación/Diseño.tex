@@ -1,0 +1,112 @@
+\documentclass[12pt]{article} 
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{graphicx}
+
+\title{TRAIN}
+\author{Sara Chica, Rodrigo Gualtero}
+\date{24 de Noviembre, 2012}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción}
+Este es un problema de la UVA, identificado con el código \textit{299}, en el cual se desea ordenar un vector de números en forma ascendente, donde el vector es un grupo de vagones el cual debe ser organizado de esta forma. 
+\\Sin embargo lo importante en este no es organizarlo, sino dar el menor número de pasos que se deben hacer para ordenar el tren.
+\\A continuación se presentan 2 ejemplos de nodos:
+\\
+\\En el primer ejemplo se presenta un tren de 3 vagones:
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej1_1.png}
+	\\Ejemplo 1.1: Tren desordenado.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej1_2.png}
+	\\Ejemplo 1.2: Tren ordenado.
+\end{center}
+
+En el segundo ejemplo se presenta un tren de 4 vagones:
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_1.png}
+	\\Ejemplo 2.1: Tren desordenado.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_7.png}
+	\\Ejemplo 2.2: Tren ordenado.
+\end{center}
+
+\section{Definición del problema}
+Este problema busca ordenar una lista de trenes, cada uno marcado con un número, en forma ascendente, es decir de menor a mayor. 
+\subsection{Entrada}
+En la primera linea entra un valor que determina el número casos que habrán.
+\\Seguido a esto entran cada uno de los casos de prueba en dos partes; la primera consta de un número que indica la longitud del tren (Menor que 50), y finalmente entran todos los vagones en el orden actual.
+\subsection{Salida}
+Imprime la siguiente frase: 
+\begin{center}
+\textsl{Optimal train swapping takes X swaps.}
+\end {center}
+donde X es un entero que indica la cantidad de pasos que tuvo que hacer para organizar el vector.
+\section{Modelamiento matemático}
+Se sabe que el tren está organizado si:
+\[
+Ordenado\equiv(\forall i,j | 0<i<j<50 : V_{i+1}=V_{j})
+\]
+Sobre este problema se podría extender un árbol de posibilidades, el cual tendría todas las posibles permutaciones que habrían, donde una de estas es la que satisface la condición de salida: Tener todos los vagones ordenados.
+\\Analizando el ejemplo 1, existen 6 posibles permutaciones de las cuales sólo serviría 1.
+\section{Planteamiento de la Solución}
+Aunque abrir un árbol de posibilidades permite analizar mejor el problema, no es la mejor solución, debido a que es poco eficiente; es por ello que existen varios algoritmos de ordenamiento, los cuales permiten organizar una lista en una secuencia dada. Para este problema se usa el algoritmo burbuja.
+\\Ordenamiento por Burbuja: Consiste en organizar el vector revisando cada elemento de la lista y comparándolo con el siguiente, de esta forma si están en el orden equivocado se deben intercambiar. 
+\\Aplicando esto al ejemplo 2 se tendría lo siguiente:
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_1.png}
+	\\Ejemplo 2.3: Tren Original.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_2.png}
+	\\Ejemplo 2.4: Paso 1.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_3.png}
+	\\Ejemplo 2.5: Paso 2.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_4.png}
+	\\Ejemplo 2.6: Paso 3.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_5.png}
+	\\Ejemplo 2.7: Paso 4.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_6.png}
+	\\Ejemplo 2.8: Paso 5.
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.50\textwidth]{Tren_Ej2_7.png}
+	\\Ejemplo 2.9: Paso 6.
+\end{center}
+ 
+\section{Conclusiones}
+\begin{enumerate}
+	\item Conocer los algoritmos de ordenamiento es importante para optimizar algunos otros algoritmos como los de búsqueda y fusión; ya que estos pueden requerir listas ordenadas para tener una ejecución rápida.
+	\item El método de ordenamiento burbuja es el algoritmo de ordenamiento más usado en los lenguajes de programación.
+\end{enumerate}\end{document}

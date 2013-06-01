@@ -1,0 +1,342 @@
+\documentclass[11pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{enumerate}
+\usepackage{pstricks,pst-grad,pst-plot,pst-coil}
+\usepackage{graphicx}
+\newpsobject{grilla}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+\setlength{\textwidth}{18cm}
+\setlength{\textheight}{23cm}
+\setlength{\footskip}{1.5cm}
+\oddsidemargin-1cm
+\topmargin-1.5cm
+\setlength{\parindent}{0pt}
+\date{}
+\renewcommand{\columnseprule}{0.05pt}
+\begin{document}
+	
+	\begin{center}
+	\textbf{Tower Of Cubes}\\
+	
+	\textbf{Johanna Beltran y Diego Triviño}\\
+	
+	2012
+	\end{center}
+	
+	\vskip8cm
+	
+	\tableofcontents
+	
+	\vskip15cm
+	
+		\section {Introducción}
+		
+			\vskip0.5cm
+		
+			\textsl \textbf{Tower of cubes} es un problema de programación dinámina, el cual encontramos en el juez virtual UVA con el número \textbf{10051}. Este documento busca mostrar una de las tantas soluciones desde el enfoque matemático, el objetivo es realizar el código con la solución del problema en cualquier lenguaje de programación con la ayuda de este documento.
+		
+		\vskip5cm
+		
+		\section {Definición del problema}
+		
+			\vskip0.5cm
+		
+			Este problema consiste en construir una torre con los cubos que estan sujetas a las siguientes restricciones:
+			
+			\begin{enumerate}
+				\item Nunca se debe colocar un cubo más pesado en uno más ligero.
+				
+				\item La cara inferior de cada cubo (excepto la parte inferior del cubo, que está tumbado en el suelo) debe tener el mismo color que la cara superior del cubo por debajo de ella.
+				
+				\item Se debe construir la torre más alta posible.
+				
+				\item El numero de cubos $N$ debe ser: $1 \leq N \leq 500$.
+				
+				\item Los datos estrictamente necesarios de cada cubo son los colores de las caras que se ingresan en el siguiente orden: delante, detrás, a la izquierda, a la derecha, arriba y abajo.
+				
+				\item Los colores $C$ se identifican por números enteros en el rango de: $1 \leq C \leq 100$.
+				
+				\item La entrada finaliza cuando $N = 0$.
+				
+				\item Usted puede asumir que los cubos se dan en el orden creciente de sus pesos, es decir, el primer cubo es el más ligero y el cubo $N$ es el más pesado. 
+			\end{enumerate}
+	 
+	 	\vskip4cm
+	
+				\subsection {Entrada}
+				
+				\vskip0.5cm
+				
+					La entrada constará de varios casos de entrada. La primera línea de cada caso de prueba contiene un número positivo $N$ que representa el número de cubos a analizar; las siguientes líneas $i$ contienen la descripción de cada cubo es decir los colores de sus respectivos lados e ingresados en el orden ya mencionado anteriormente .
+					El final de la entrada de los datos se indica con el número 0.
+					
+					\vskip0.5cm
+					
+					\[
+					 	\emph{EJEMPLO}
+					\]
+					\[
+							3
+					\]
+					\[
+							1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 2 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+					\]
+					\[
+							3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+					\]
+					\[
+							3 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+					\]
+					\[
+							10
+					\]
+					\[
+							1 \begin{tabular}{ccc} 5 \begin{tabular}{ccc} 10 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 6 \begin{tabular}{ccc} 5 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							2 \begin{tabular}{ccc} 6 \begin{tabular}{ccc} 7 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 6 \begin{tabular}{ccc} 9 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							5 \begin{tabular}{ccc} 7 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 9 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							1 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 5 \begin{tabular}{ccc} 8 \begin{tabular}{ccc} 10 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							6 \begin{tabular}{ccc} 6 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 4 \begin{tabular}{ccc} 4 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 4 \begin{tabular}{ccc} 5 \begin{tabular}{ccc} 6 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							10 \begin{tabular}{ccc} 9 \begin{tabular}{ccc} 8 \begin{tabular}{ccc} 7 \begin{tabular}{ccc} 6 \begin{tabular}{ccc} 5 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							6 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 4 \begin{tabular}{ccc} 7 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							3 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 3 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+					\]
+					\[
+							0
+					\]
+				
+				\vskip8cm
+				
+				\subsection {Salida}
+				
+					\vskip0.5cm
+				
+					Para cada caso de prueba en la primera entrada debe imprimir el número de caso de prueba en una línea separada, como se muestra en el ejemplo de salida. En la siguiente línea imprimirá el número de cubos en la torre más alta que haya desarrollado. En la línea siguiente se describen los cubos en su torre, de arriba a abajo con una descripción por línea. Cada descripción contiene un número entero (que da el número de serie de este cubo en la entrada) seguido de un único espacio en blanco y luego la cadena de identificación (delante, detrás, izquierda, derecha, arriba o abajo) de la cara superior del cubo en el torre. Tenga en cuenta que puede haber múltiples soluciones y cualquiera de ellos es aceptable.
+					
+					\vskip0.5cm
+					
+					 	\emph{EJEMPLO ANTERIOR}
+					 	
+					 	\begin{tabular}{ccc}
+					\[
+							Case # 1
+					\]
+						\end {tabular}
+						
+						\begin{tabular}{ccc}
+					\[
+							2
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							2 front
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							3 front
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							Case #2
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							8
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							1 bottom
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							2 back
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							3 right
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							4 left
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							6 top
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							8 front
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							9 front
+					\]
+						\end {tabular}
+					
+					\begin{tabular}{ccc}
+					\[
+							10 top
+					\]
+						\end {tabular}
+	
+			\vskip3cm
+			
+		\section {Modelamiento matemático}
+		
+		\vskip0.5cm
+		
+			Para este problema se decidió utilizar 4 matrices:
+			
+				\begin{tabular}{ccc} \item Cubos: en esta matriz se van a guardar todos los distintos cubos que se ingresan juntos con sus respectivas caras. \end {tabular}
+				
+				\begin{tabular}{ccc} \item TamañoTorres: en esta matriz se  van a ir guardando los máximos tamaños que pueden llegar a tener una torre. \end {tabular}
+				
+				\begin{tabular}{ccc} \item MatrizIncidencia: Se encarga de guardar todas las distintas conexiones que puede llegar a tener un cubo con otro, es decir, cuáles de las caras de un cubo coincide con la de otro. \end {tabular}
+				
+				\begin{tabular}{ccc} \item ConexionesCara: Cuando dos cubos se relacionan entre sí, es decir que tienen un color en común, en esta matriz se almacena el número de ese color. \end {tabular}
+		
+				\vskip4cm
+					
+		\section {Planteamiento de la solución}
+		
+		Una vez se han completado todas las matrices, se busca en $TamañoTorres$ cuál es la más grande, después en la $MatrizIncidencia$ se busca cuáles son los cubos que se encuentran que conforman la torre y para finalizar se revisa en la matriz $ConexionesCara$ cual es color que une dos cubos.
+Las matrices tienen las siguientes características:
+
+	\begin{tabular}{ccc} Matriz Cubos: En cada fila de la matriz se almacenan todos los colores un cubo, los cubos se guardan en el mismo orden como entraron. Por ejemplo para el siguiente caso: \end {tabular}
+	
+\[
+
+	1 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 2 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular}
+	
+	3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \begin{tabular}{ccc} 3 \end {tabular} \end {tabular}\end {tabular}\end {tabular}\end {tabular}
+	
+	3 \begin{tabular}{ccc} 2 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \begin{tabular}{ccc} 1 \end {tabular} \end {tabular} \end {tabular} \end {tabular} \end {tabular} 
+	
+\]
+
+	\begin{tabular}{ccc} La matriz TamanoTorre seria: \end {tabular}
+
+	\[
+				L= \left( \begin{array}{rrrrrr}
+				
+				1 & 2 & 2 & 2 & 1 & 2 \\
+				
+				3 & 3 & 3 & 3 & 3 & 3 \\
+				
+				3 & 2 & 1 & 1 & 1 & 1 \\
+				
+				\end{array}
+				\right) 
+	\]
+				
+	\begin{tabular}{ccc} Matriz TamañoTorres: \end {tabular} Esta matriz guarda los distintos tamaños de torres que se pueden generar dependiendo de las distintas combinaciones de cubos. Por ejemplo para el caso anterior su matriz de TamañoTorres sería la siguiente:
+	
+\[
+				M= \left( \begin{array}{rrr}
+				
+				2 & 2 & 2 \\
+				
+				1 & 1 & 2 \\
+				
+				1 & 1 & 1 \\
+				
+				\end{array}
+				\right) 
+	\]
+	
+	\begin{tabular}{ccc} MatrizIncidencia: \end {tabular} Cada fila de esta matriz representa un cubo y cada uno de sus filas representa el color del cubo, se coloca un 1 para representarlo. Para nuestro ejemplo la $MatrizIncidencia$ es:
+	
+\[
+				M= \left( \begin{array}{rrr}
+				
+				2 & 2 & 2 \\
+				
+				1 & 1 & 2 \\
+				
+				1 & 1 & 1 \\
+				
+				\end{array}
+				\right) 
+	\]
+	\begin{tabular}{ccc} ConexiónesCara: \end {tabular} Guarda un numero del  1 al 6 representado la cara con la cual se conectan los cubos. Para nuestro ejemplo la matriz conexionCara es:
+
+\[
+				I= \left( \begin{array}{rrr}
+				
+				1 & 2 & 0 \\
+				
+				0 & 0 & 1 \\
+				
+				3 & 2 & 1 \\
+				
+				\end{array}
+				\right) 
+	\]
+
+	
+			\vskip3cm
+		
+		\section {Conclusiones}
+		
+		\vskip0.5cm
+		
+			\begin{enumerate}
+			
+				\item Para este problema es necesario y conveniente utilizar programación dinámica porque no existe la necesidad de recalcular aquellas soluciones que ya teníamos en algún momento de la ejecución; ahorrando tiempo y codificación en la solución.
+				
+				\item Para este problema es conveniente utilizar una matriz para guardar los datos que se van encontrando y evitar redundancia.
+			
+			\end{enumerate}
+	
+\end{document}
